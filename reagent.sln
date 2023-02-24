@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reagent", "Reagent\Reagent.csproj", "{A59DE568-0B18-4380-950C-2DA46608AF1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReagent", "TestReagent\TestReagent.csproj", "{22405535-5FF9-421C-9C2B-E62A49FE37BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A59DE568-0B18-4380-950C-2DA46608AF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59DE568-0B18-4380-950C-2DA46608AF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59DE568-0B18-4380-950C-2DA46608AF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59DE568-0B18-4380-950C-2DA46608AF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
