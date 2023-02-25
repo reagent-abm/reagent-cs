@@ -110,7 +110,7 @@ public class SimulationManagerTest
         Assert.Null(SimulationManager.Instance);
     }
 
-    private void UnsetInstance()
+    public static void UnsetInstance()
     {
         SimulationManager.Instance = null;
     }

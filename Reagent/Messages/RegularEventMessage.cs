@@ -106,7 +106,7 @@ public class RegularEventMessage : IMessage
     /// The time at which the first message is sent. The start time must be before the end time.
     /// </param>
     /// <param name="endTime">
-    /// The time at which the last message is sent. The end time must be after the start time.
+    /// The time at which the last message is sent (exclusive). The end time must be after the start time.
     /// </param>
     /// <exception cref="ArgumentException">
     /// Thrown if the start time is after the end time or the interval is zero.
@@ -123,8 +123,13 @@ public class RegularEventMessage : IMessage
         {
             throw new ArgumentException("The interval is zero", nameof(interval));
         }
+        
+        if (interval < TimeSpan.Zero)
+        {
+            throw new ArgumentException("The interval is negative", nameof(interval));
+        }
 
-        StaticLogger?.LogDebug(
+        StaticLogger!.LogDebug(
             "Creating and scheduling messages like {PrototypeMessage} from {StartTime} to {EndTime} with interval {Interval}",
             prototypeMessage, startTime, endTime, interval);
 
@@ -132,7 +137,7 @@ public class RegularEventMessage : IMessage
         while (currentTime < endTime)
         {
             var message = prototypeMessage.Clone();
-            StaticLogger?.LogDebug("Scheduling message {Message} at time {Time}", message, currentTime);
+            StaticLogger!.LogDebug("Scheduling message {Message} at time {Time}", message, currentTime);
             SimulationManager.SimulationManager.Instance!.ScheduleMessage(message, currentTime);
             currentTime += interval;
         }
