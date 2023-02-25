@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
 using Reagent.Messages;
+using TestReagent.SimulationManager;
 
 namespace TestReagent.Agent;
 
@@ -20,11 +21,20 @@ public class AgentTest
 
         public override void HandleMessage(IMessage message)
         {
+            throw new System.NotImplementedException();
         }
     }
     
     [Fact]
-    public void ConstructorAssignsRandomGuid()
+    public void HandleMessage_Always_ThrowsNotImplementedException()
+    {
+        var a = new AgentTestImpl();
+        var m = new SimulationManagerTest.MessageImpl(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+        Assert.Throws<NotImplementedException>(() => a.HandleMessage(m));
+    }
+    
+    [Fact]
+    public void Constructor_NoGuid_AssignsRandomGuid()
     {
         var a1 = new AgentTestImpl();
         var a2 = new AgentTestImpl();
@@ -32,10 +42,17 @@ public class AgentTest
     }
 
     [Fact]
-    public void ConstructorAssignsFixedGuid()
+    public void Constructor_FixedGuid_Assigns()
     {
         var g = Guid.NewGuid();
         var a = new AgentTestImpl(g);
         Assert.Equal(g, a.Guid);
+    }
+    
+    [Fact]
+    public void ToString_Always_RepresentationIsCorrect()
+    {
+        var a = new AgentTestImpl();
+        Assert.Equal($"Agent(Guid={a.Guid})", a.ToString());
     }
 }
