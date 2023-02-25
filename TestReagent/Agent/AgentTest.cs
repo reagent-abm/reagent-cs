@@ -24,7 +24,7 @@ public class AgentTest
     }
     
     [Fact]
-    public void TestConstructorAssignsRandomGuid()
+    public void Constructor_NoGuid_AssignsRandomGuid()
     {
         var a1 = new AgentTestImpl();
         var a2 = new AgentTestImpl();
@@ -32,7 +32,7 @@ public class AgentTest
     }
 
     [Fact]
-    public void TestConstructorAssignsFixedGuid()
+    public void Constructor_FixedGuid_Assigns()
     {
         var g = Guid.NewGuid();
         var a = new AgentTestImpl(g);
@@ -40,7 +40,7 @@ public class AgentTest
     }
     
     [Fact]
-    public void TestToString()
+    public void ToString_Always_RepresentationIsCorrect()
     {
         var a = new AgentTestImpl();
         Assert.Equal($"Agent(Guid={a.Guid})", a.ToString());
