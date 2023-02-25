@@ -5,6 +5,7 @@ using TestReagent.SimulationManager;
 
 namespace TestReagent.Messages;
 
+[Collection("Uses SimulationManager")]
 public class WakeUpMessageTest
 {
     [Fact]

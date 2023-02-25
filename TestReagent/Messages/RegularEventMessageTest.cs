@@ -5,6 +5,7 @@ using TestReagent.SimulationManager;
 
 namespace TestReagent.Messages;
 
+[Collection("Uses SimulationManager")]
 public class RegularEventMessageTest
 {
     private static readonly ILoggerFactory LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>

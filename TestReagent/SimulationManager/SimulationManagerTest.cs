@@ -7,6 +7,7 @@ namespace TestReagent.SimulationManager;
 
 using Reagent.SimulationManager;
 
+[Collection("Uses SimulationManager")]
 public class SimulationManagerTest
 {
     public class MessageImpl : IMessage
@@ -110,7 +111,7 @@ public class SimulationManagerTest
         Assert.Null(SimulationManager.Instance);
     }
 
-    public static void UnsetInstance()
+    internal static void UnsetInstance()
     {
         SimulationManager.Instance = null;
     }
