@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reagent", "Reagent\Reagent.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReagent", "TestReagent\TestReagent.csproj", "{22405535-5FF9-421C-9C2B-E62A49FE37BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConceptModel", "ConceptModel\ConceptModel.csproj", "{1E417006-5A65-4F21-80C2-D20F9CE6EE10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConceptRunner", "ConceptRunner\ConceptRunner.csproj", "{F7119018-F113-4439-893A-D370DD3BCFE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22405535-5FF9-421C-9C2B-E62A49FE37BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E417006-5A65-4F21-80C2-D20F9CE6EE10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E417006-5A65-4F21-80C2-D20F9CE6EE10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E417006-5A65-4F21-80C2-D20F9CE6EE10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E417006-5A65-4F21-80C2-D20F9CE6EE10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7119018-F113-4439-893A-D370DD3BCFE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7119018-F113-4439-893A-D370DD3BCFE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7119018-F113-4439-893A-D370DD3BCFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7119018-F113-4439-893A-D370DD3BCFE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
