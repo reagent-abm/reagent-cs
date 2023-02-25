@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
 using Reagent.Messages;
+using TestReagent.SimulationManager;
 
 namespace TestReagent.Agent;
 
@@ -20,7 +21,16 @@ public class AgentTest
 
         public override void HandleMessage(IMessage message)
         {
+            throw new System.NotImplementedException();
         }
+    }
+    
+    [Fact]
+    public void HandleMessage_Always_ThrowsNotImplementedException()
+    {
+        var a = new AgentTestImpl();
+        var m = new SimulationManagerTest.MessageImpl(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+        Assert.Throws<NotImplementedException>(() => a.HandleMessage(m));
     }
     
     [Fact]

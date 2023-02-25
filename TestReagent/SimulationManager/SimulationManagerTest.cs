@@ -222,6 +222,9 @@ public class SimulationManagerTest
     {
         var simulationManager = new SimulationManager(Logger, StartTime, EndTime);
         var message = new MessageImpl(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+        Assert.NotEqual(message.Destination, message.Sender);
+        Assert.NotEqual(message.Guid, message.Destination);
+        Assert.NotEqual(message.Guid, message.Sender);
         simulationManager.SendMessageNow(message);
         Assert.Throws<InvalidOperationException>(() => simulationManager.Run());
     }
