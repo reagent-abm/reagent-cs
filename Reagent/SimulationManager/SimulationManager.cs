@@ -188,4 +188,13 @@ public class SimulationManager
 
         _logger.LogInformation("Simulation finished at time {CurrentTime}", CurrentTime);
     }
+
+    /// <summary>
+    /// Get a string representation of the <c>SimulationManager</c>.
+    /// </summary>
+    /// <returns>The string representation.</returns>
+    public override string ToString()
+    {
+        return $"SimulationManager(StartTime={StartTime}, EndTime={EndTime}, CurrentTime={CurrentTime})";
+    }
 }
