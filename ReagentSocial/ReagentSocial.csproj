@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Reagent\Reagent.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="QuikGraph" Version="2.5.0" />
+    </ItemGroup>
+
 </Project>
