@@ -249,4 +249,12 @@ public class SimulationManagerTest
         Assert.Equal(message1, messageQueue[messageTime].Dequeue());
         Assert.Equal(message2, messageQueue[messageTime].Dequeue());
     }
+
+    [Fact]
+    public void ToString_Always_RepresentationIsCorrect()
+    {
+        var simulationManager = new SimulationManager(Logger, StartTime, EndTime);
+        var expected = $"SimulationManager(StartTime={StartTime}, EndTime={EndTime}, CurrentTime={StartTime})";
+        Assert.Equal(expected, simulationManager.ToString());
+    }
 }
