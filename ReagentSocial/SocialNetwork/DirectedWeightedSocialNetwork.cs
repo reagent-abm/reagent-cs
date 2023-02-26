@@ -9,10 +9,13 @@ public class DirectedWeightedSocialNetwork : ISocialNetwork
     protected virtual AdjacencyGraph<Guid, STaggedEdge<Guid, double>> Network { get; } = new();
     
     protected virtual ILogger<DirectedWeightedSocialNetwork> Logger { get; }
+    
+    protected virtual SimulationManager.SimulationManager SimulationManager { get; }
 
-    public DirectedWeightedSocialNetwork(ILogger<DirectedWeightedSocialNetwork> logger)
+    public DirectedWeightedSocialNetwork(SimulationManager.SimulationManager simulationManager, ILogger<DirectedWeightedSocialNetwork> logger)
     {
         Logger = logger;
+        SimulationManager = simulationManager;
     }
 
     public virtual void AddAgent(Agent.Agent agent)
@@ -62,7 +65,7 @@ public class DirectedWeightedSocialNetwork : ISocialNetwork
 
         foreach (var message in messages)
         {
-            SimulationManager.SimulationManager.Instance!.SendMessageNow(message);
+            SimulationManager.SendMessageNow(message);
         }
     }
     
