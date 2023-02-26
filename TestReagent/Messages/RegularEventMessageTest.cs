@@ -5,7 +5,6 @@ using TestReagent.SimulationManager;
 
 namespace TestReagent.Messages;
 
-[Collection("Uses SimulationManager")]
 public class RegularEventMessageTest
 {
     private static readonly ILoggerFactory LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
@@ -67,28 +66,43 @@ public class RegularEventMessageTest
     {
         var agent = new AgentTest.AgentTestImpl();
         var m = new RegularEventMessage(agent, Logger);
+        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { builder.AddConsole(); });
+        var logger = loggerFactory.CreateLogger<Reagent.SimulationManager.SimulationManager>();
+        var startTime = DateTime.Now;
+        var endTime = DateTime.Now + TimeSpan.FromDays(30);
+        var simulationManager = new Reagent.SimulationManager.SimulationManager(logger, startTime, endTime);
         Assert.Throws<ArgumentException>(() =>
-            RegularEventMessage.CreateAndScheduleMessages(m, TimeSpan.FromDays(1), DateTime.Now,
+            RegularEventMessage.CreateAndScheduleMessages(simulationManager, m, TimeSpan.FromDays(1), DateTime.Now,
                 DateTime.Now - TimeSpan.FromDays(1)));
     }
-    
+
     [Fact]
     public void CreateAndScheduleMessages_TimeSpanIsZero_ThrowsException()
     {
         var agent = new AgentTest.AgentTestImpl();
         var m = new RegularEventMessage(agent, Logger);
+        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { builder.AddConsole(); });
+        var logger = loggerFactory.CreateLogger<Reagent.SimulationManager.SimulationManager>();
+        var startTime = DateTime.Now;
+        var endTime = DateTime.Now + TimeSpan.FromDays(30);
+        var simulationManager = new Reagent.SimulationManager.SimulationManager(logger, startTime, endTime);
         Assert.Throws<ArgumentException>(() =>
-            RegularEventMessage.CreateAndScheduleMessages(m, TimeSpan.Zero, DateTime.Now,
+            RegularEventMessage.CreateAndScheduleMessages(simulationManager, m, TimeSpan.Zero, DateTime.Now,
                 DateTime.Now + TimeSpan.FromDays(1)));
     }
-    
+
     [Fact]
     public void CreateAndScheduleMessages_TimeSpanIsNegative_ThrowsException()
     {
         var agent = new AgentTest.AgentTestImpl();
         var m = new RegularEventMessage(agent, Logger);
+        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { builder.AddConsole(); });
+        var logger = loggerFactory.CreateLogger<Reagent.SimulationManager.SimulationManager>();
+        var startTime = DateTime.Now;
+        var endTime = DateTime.Now + TimeSpan.FromDays(30);
+        var simulationManager = new Reagent.SimulationManager.SimulationManager(logger, startTime, endTime);
         Assert.Throws<ArgumentException>(() =>
-            RegularEventMessage.CreateAndScheduleMessages(m, TimeSpan.FromDays(-1), DateTime.Now,
+            RegularEventMessage.CreateAndScheduleMessages(simulationManager, m, TimeSpan.FromDays(-1), DateTime.Now,
                 DateTime.Now + TimeSpan.FromDays(1)));
     }
 
@@ -97,13 +111,10 @@ public class RegularEventMessageTest
     {
         var simulationStartTime = new DateTime(2023, 1, 1);
         var simulationEndTime = new DateTime(2025, 1, 1);
-        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
-        {
-            builder.AddConsole();
-        });
+        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { builder.AddConsole(); });
         var logger = loggerFactory.CreateLogger<SimulationManagerTest.SimulationManagerImpl>();
-        var simulationManager = new SimulationManagerTest.SimulationManagerImpl(logger, simulationStartTime, simulationEndTime);
-        Reagent.SimulationManager.SimulationManager.Instance = simulationManager;
+        var simulationManager =
+            new SimulationManagerTest.SimulationManagerImpl(logger, simulationStartTime, simulationEndTime);
 
         var agent = new AgentTest.AgentTestImpl();
         var prototype = new RegularEventMessage(agent, Logger);
@@ -111,22 +122,22 @@ public class RegularEventMessageTest
         var scheduleStartTime = simulationStartTime + TimeSpan.FromDays(1);
         var scheduleEndTime = scheduleStartTime + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(1);
         RegularEventMessage.StaticLogger = Logger;
-        RegularEventMessage.CreateAndScheduleMessages(prototype, timeSpan, scheduleStartTime, scheduleEndTime);
+        RegularEventMessage.CreateAndScheduleMessages(simulationManager, prototype, timeSpan, scheduleStartTime,
+            scheduleEndTime);
         var messages = simulationManager.GetMessageQueue;
         Assert.Equal(8, messages.Count);
         Assert.Equal(scheduleStartTime, messages.Keys.First());
         Assert.Equal(scheduleStartTime + TimeSpan.FromDays(7), messages.Keys.Last());
-        
+
         for (uint i = 0; i < 8; i++)
         {
-            var message = messages.Values.ElementAt((int) i).First();
+            var message = messages.Values.ElementAt((int)i).First();
             Assert.NotEqual(prototype.Guid, message.Guid);
             Assert.Equal(prototype.Sender, message.Sender);
             Assert.Equal(prototype.Destination, message.Destination);
-            Assert.Equal(scheduleStartTime + TimeSpan.FromDays(i), messages.Keys.ElementAt((int) i));
+            Assert.Equal(scheduleStartTime + TimeSpan.FromDays(i), messages.Keys.ElementAt((int)i));
         }
-        
+
         UnsetStaticLogger();
-        SimulationManager.SimulationManagerTest.UnsetInstance();
     }
 }

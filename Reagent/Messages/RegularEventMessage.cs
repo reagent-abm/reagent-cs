@@ -96,6 +96,9 @@ public class RegularEventMessage : IMessage
     /// <summary>
     /// Create and schedule messages like the prototype message.
     /// </summary>
+    /// <param name="simulationManager">
+    /// The <c>SimulationManager</c> that is used to schedule the messages.
+    /// </param>
     /// <param name="prototypeMessage">
     /// The prototype message. The <c>Guid</c> of the prototype message is ignored.
     /// </param>
@@ -111,7 +114,8 @@ public class RegularEventMessage : IMessage
     /// <exception cref="ArgumentException">
     /// Thrown if the start time is after the end time or the interval is zero.
     /// </exception>
-    public static void CreateAndScheduleMessages(RegularEventMessage prototypeMessage, TimeSpan interval,
+    public static void CreateAndScheduleMessages(SimulationManager.SimulationManager simulationManager,
+        RegularEventMessage prototypeMessage, TimeSpan interval,
         DateTime startTime, DateTime endTime)
     {
         if (startTime > endTime)
@@ -123,7 +127,7 @@ public class RegularEventMessage : IMessage
         {
             throw new ArgumentException("The interval is zero", nameof(interval));
         }
-        
+
         if (interval < TimeSpan.Zero)
         {
             throw new ArgumentException("The interval is negative", nameof(interval));
@@ -138,7 +142,7 @@ public class RegularEventMessage : IMessage
         {
             var message = prototypeMessage.Clone();
             StaticLogger!.LogDebug("Scheduling message {Message} at time {Time}", message, currentTime);
-            SimulationManager.SimulationManager.Instance!.ScheduleMessage(message, currentTime);
+            simulationManager.ScheduleMessage(message, currentTime);
             currentTime += interval;
         }
     }

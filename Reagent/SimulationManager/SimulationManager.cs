@@ -11,6 +11,7 @@ public class SimulationManager
     /// <summary>
     /// The pseudo-singleton instance of the <c>SimulationManager</c>.
     /// </summary>
+    [Obsolete("This is a pseudo-singleton. Use dependency injection instead.")]
     public static SimulationManager? Instance { get; set; }
 
     /// <summary>
