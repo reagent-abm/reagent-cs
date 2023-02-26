@@ -78,4 +78,14 @@ public class SocialMessage : IMessage
         destination, sender, payload, weight)
     {
     }
+
+    /// <summary>
+    /// Get a string representation of the <c>SocialMessage</c>.
+    /// </summary>
+    /// <returns>The string representation.</returns>
+    public override string ToString()
+    {
+        return
+            $"SocialMessage(Guid={Guid}, Destination={Destination}, Sender={Sender}, Payload={Payload}, Weight={Weight})";
+    }
 }
