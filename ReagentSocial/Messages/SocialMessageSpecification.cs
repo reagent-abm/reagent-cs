@@ -79,14 +79,13 @@ public class SocialMessageSpecification : IGuidD
     /// <returns>
     /// The <c>SocialMessage</c>s.
     /// </returns>
-    public virtual IList<SocialMessage> ToSocialMessagesFromGuids(IList<Guid> destinations)
+    public virtual IEnumerable<SocialMessage> ToSocialMessagesFromGuids(IList<Guid> destinations)
     {
         Logger.LogTrace(
             "Converting SocialMessageSpecification {SocialMessageSpecification} from Sender {Sender} to {Destinations} destinations",
             this, Sender, destinations.Count);
-        var result = from destination in destinations
+        return from destination in destinations
             select new SocialMessage(destination, Sender, Payload);
-        return result.ToList();
     }
 
     /// <summary>
@@ -98,14 +97,13 @@ public class SocialMessageSpecification : IGuidD
     /// <returns>
     /// The <c>SocialMessage</c>s.
     /// </returns>
-    public virtual IList<SocialMessage> ToSocialMessagesFromAgents(IList<Agent.Agent> agents)
+    public virtual IEnumerable<SocialMessage> ToSocialMessagesFromAgents(IList<Agent.Agent> agents)
     {
         Logger.LogTrace(
             "Converting SocialMessageSpecification {SocialMessageSpecification} from Sender {Sender} to {Agents} agents",
             this, Sender, agents.Count);
-        var result = from agent in agents
+        return from agent in agents
             select new SocialMessage(agent.Guid, Sender, Payload);
-        return result.ToList();
     }
 
     /// <summary>
@@ -117,15 +115,14 @@ public class SocialMessageSpecification : IGuidD
     /// <returns>
     /// The <c>SocialMessage</c>s.
     /// </returns>
-    public virtual IList<SocialMessage> ToSocialMessagesFromGuidsAndWeights(
+    public virtual IEnumerable<SocialMessage> ToSocialMessagesFromGuidsAndWeights(
         IList<Tuple<Guid, double>> destinationsAndWeights)
     {
         Logger.LogTrace(
             "Converting SocialMessageSpecification {SocialMessageSpecification} from Sender {Sender} to {DestinationsAndWeights} destinations and weights",
             this, Sender, destinationsAndWeights.Count);
-        var result = from destinationAndWeight in destinationsAndWeights
+        return from destinationAndWeight in destinationsAndWeights
             select new SocialMessage(destinationAndWeight.Item1, Sender, Payload, destinationAndWeight.Item2);
-        return result.ToList();
     }
     
     /// <summary>
@@ -137,15 +134,14 @@ public class SocialMessageSpecification : IGuidD
     /// <returns>
     /// The <c>SocialMessage</c>s.
     /// </returns>
-    public virtual IList<SocialMessage> ToSocialMessagesFromAgentsAndWeights(
+    public virtual IEnumerable<SocialMessage> ToSocialMessagesFromAgentsAndWeights(
         IList<Tuple<Agent.Agent, double>> agentsAndWeights)
     {
         Logger.LogTrace(
             "Converting SocialMessageSpecification {SocialMessageSpecification} from Sender {Sender} to {AgentsAndWeights} agents and weights",
             this, Sender, agentsAndWeights.Count);
-        var result = from agentAndWeight in agentsAndWeights
+        return from agentAndWeight in agentsAndWeights
             select new SocialMessage(agentAndWeight.Item1.Guid, Sender, Payload, agentAndWeight.Item2);
-        return result.ToList();
     }
 
     /// <summary>
