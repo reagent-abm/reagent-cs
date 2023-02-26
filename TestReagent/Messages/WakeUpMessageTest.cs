@@ -5,7 +5,6 @@ using TestReagent.SimulationManager;
 
 namespace TestReagent.Messages;
 
-[Collection("Uses SimulationManager")]
 public class WakeUpMessageTest
 {
     [Fact]
@@ -13,18 +12,17 @@ public class WakeUpMessageTest
     {
         var startTime = DateTime.Now;
         var endTime = startTime.AddYears(1);
-        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
+        var loggerFactory = LoggerFactory.Create(builder =>
         {
             builder.AddConsole();
         });
         var logger = loggerFactory.CreateLogger<SimulationManagerTest.SimulationManagerImpl>();
         var simulationManager = new SimulationManagerTest.SimulationManagerImpl(logger, startTime, endTime);
-        Reagent.SimulationManager.SimulationManager.Instance = simulationManager;
         
         var g = Guid.NewGuid();
         var agent = new AgentTest.AgentTestImpl();
         var wakeTime = startTime.AddMonths(6);
-        var m = new WakeUpMessage(agent, wakeTime, g);
+        var m = new WakeUpMessage(simulationManager, agent, wakeTime, g);
         Assert.Equal(g, m.Guid);
         Assert.Equal(agent.Guid, m.Destination);
         Assert.Equal(agent.Guid, m.Sender);
@@ -35,7 +33,6 @@ public class WakeUpMessageTest
         var queue = messageQueue[wakeTime];
         Assert.Single(queue);
         Assert.Equal(m, queue.Dequeue());
-        SimulationManager.SimulationManagerTest.UnsetInstance();
     }
 
     [Fact]
@@ -43,18 +40,17 @@ public class WakeUpMessageTest
     {
         var startTime = DateTime.Now;
         var endTime = startTime.AddYears(1);
-        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
+        var loggerFactory = LoggerFactory.Create(builder =>
         {
             builder.AddConsole();
         });
         var logger = loggerFactory.CreateLogger<SimulationManagerTest.SimulationManagerImpl>();
         var simulationManager = new SimulationManagerTest.SimulationManagerImpl(logger, startTime, endTime);
-        Reagent.SimulationManager.SimulationManager.Instance = simulationManager;
-        
+       
         var agent = new AgentTest.AgentTestImpl();
         var wakeTime = startTime.AddMonths(6);
-        var m1 = new WakeUpMessage(agent, wakeTime);
-        var m2 = new WakeUpMessage(agent, wakeTime);
+        var m1 = new WakeUpMessage(simulationManager, agent, wakeTime);
+        var m2 = new WakeUpMessage(simulationManager, agent, wakeTime);
         Assert.NotEqual(m1.Guid, m2.Guid);
         Assert.Equal(agent.Guid, m1.Destination);
         Assert.Equal(agent.Guid, m1.Sender);
@@ -69,8 +65,6 @@ public class WakeUpMessageTest
         Assert.Equal(2, queue.Count);
         Assert.Equal(m1, queue.Dequeue());
         Assert.Equal(m2, queue.Dequeue());
-        
-        SimulationManager.SimulationManagerTest.UnsetInstance();
     }
     
     [Fact]
@@ -78,20 +72,17 @@ public class WakeUpMessageTest
     {
         var startTime = DateTime.Now;
         var endTime = startTime.AddYears(1);
-        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
+        var loggerFactory = LoggerFactory.Create(builder =>
         {
             builder.AddConsole();
         });
         var logger = loggerFactory.CreateLogger<SimulationManagerTest.SimulationManagerImpl>();
         var simulationManager = new SimulationManagerTest.SimulationManagerImpl(logger, startTime, endTime);
-        Reagent.SimulationManager.SimulationManager.Instance = simulationManager;
         
         var agent = new AgentTest.AgentTestImpl();
         var wakeTime = DateTime.Now;
-        var m = new WakeUpMessage(agent, wakeTime);
+        var m = new WakeUpMessage(simulationManager, agent, wakeTime);
         Assert.Equal($"WakeUpMessage(Sender={m.Sender}, Destination={m.Destination}, Guid={m.Guid}, WakeTime={m.WakeTime})",
             m.ToString());
-        
-        SimulationManager.SimulationManagerTest.UnsetInstance();
     }
 }

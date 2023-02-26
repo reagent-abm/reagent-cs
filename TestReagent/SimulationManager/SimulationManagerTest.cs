@@ -7,7 +7,6 @@ namespace TestReagent.SimulationManager;
 
 using Reagent.SimulationManager;
 
-[Collection("Uses SimulationManager")]
 public class SimulationManagerTest
 {
     public class MessageImpl : IMessage
@@ -105,26 +104,6 @@ public class SimulationManagerTest
         Assert.Equal(agent2, agents[agent2.Guid]);
     }
 
-    [Fact]
-    public void GetInstance_NotSet_ReturnsNull()
-    {
-        Assert.Null(SimulationManager.Instance);
-    }
-
-    internal static void UnsetInstance()
-    {
-        SimulationManager.Instance = null;
-    }
-    
-    [Fact]
-    public void GetInstance_Set_ReturnsInstance()
-    {
-        var simulationManager = new SimulationManager(Logger, StartTime, EndTime);
-        SimulationManager.Instance = simulationManager;
-        Assert.Equal(simulationManager, SimulationManager.Instance);
-        UnsetInstance();
-    }
-    
     [Fact]
     public void GetStartTime_Always_ReturnsStartTime()
     {

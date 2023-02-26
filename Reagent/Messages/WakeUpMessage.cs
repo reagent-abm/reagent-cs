@@ -1,5 +1,7 @@
 ﻿namespace Reagent.Messages;
 
+using SimulationManager;
+
 /// <summary>
 /// A <c>WakeUpMessage</c> is an <c>IMessage</c> that is sent to an <c>Agent</c> to wake it up at a specific time.
 /// </summary>
@@ -9,24 +11,27 @@ public class WakeUpMessage : IMessage
     /// <summary>
     /// Create a new <c>WakeUpMessage</c> scheduling it.
     /// </summary>
+    /// <param name="simulationManager">The manager of the simulation.</param>
     /// <param name="agent">The <c>Agent</c>.</param>
     /// <param name="wakeTime">The <c>DateTime</c> to wake up.</param>
-    /// <param name="guid">The <c>Guid> of the <c>WakeUpMessage</c>.</param>
-    public WakeUpMessage(Agent.Agent agent, DateTime wakeTime, Guid guid)
+    /// <param name="guid">The <c>Guid</c> of the <c>WakeUpMessage</c>.</param>
+    public WakeUpMessage(SimulationManager simulationManager, Agent.Agent agent, DateTime wakeTime, Guid guid)
     {
         Guid = guid;
         _agentGuid = agent.Guid;
         WakeTime = wakeTime;
 
-        SimulationManager.SimulationManager.Instance!.ScheduleMessage(this, wakeTime);
+        simulationManager.ScheduleMessage(this, wakeTime);
     }
-    
+
     /// <summary>
     /// Create a new <c>WakeUpMessage</c> scheduling it with a randomly generated <c>Guid</c>.
     /// </summary>
+    /// <param name="simulationManager">The manager of the simulation.</param>
     /// <param name="agent">The <c>Agent</c>.</param>
     /// <param name="wakeTime">The <c>DateTime</c> to wake up.</param>
-    public WakeUpMessage(Agent.Agent agent, DateTime wakeTime) : this(agent, wakeTime, Guid.NewGuid())
+    public WakeUpMessage(SimulationManager simulationManager, Agent.Agent agent, DateTime wakeTime) : this(
+        simulationManager, agent, wakeTime, Guid.NewGuid())
     {
     }
 
@@ -40,7 +45,7 @@ public class WakeUpMessage : IMessage
     /// The <c>Guid</c> of the <c>Agent</c> that the message is sent to.
     /// </summary>
     private readonly Guid _agentGuid;
-    
+
     /// <summary>
     /// The <c>Guid</c> of the <c>WakeUpMessage</c>.
     /// </summary>
@@ -55,7 +60,7 @@ public class WakeUpMessage : IMessage
     /// The <c>Guid</c> of the <c>Agent</c> that sent the message.
     /// </summary>
     public virtual Guid Sender => _agentGuid;
-    
+
     /// <summary>
     /// Create a string representation of the <c>WakeUpMessage</c>.
     /// </summary>
