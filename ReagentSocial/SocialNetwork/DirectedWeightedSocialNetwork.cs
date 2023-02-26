@@ -10,9 +10,9 @@ public class DirectedWeightedSocialNetwork : ISocialNetwork
     
     protected virtual ILogger<DirectedWeightedSocialNetwork> Logger { get; }
     
-    protected virtual SimulationManager.SimulationManager SimulationManager { get; }
+    protected virtual Reagent.SimulationManager.SimulationManager SimulationManager { get; }
 
-    public DirectedWeightedSocialNetwork(SimulationManager.SimulationManager simulationManager, ILogger<DirectedWeightedSocialNetwork> logger)
+    public DirectedWeightedSocialNetwork(Reagent.SimulationManager.SimulationManager simulationManager, ILogger<DirectedWeightedSocialNetwork> logger)
     {
         Logger = logger;
         SimulationManager = simulationManager;
