@@ -10,27 +10,27 @@ public class SocialMessage : IMessage
     /// <summary>
     /// The <c>Guid</c> of the <c>SocialMessage</c>.
     /// </summary>
-    public Guid Guid { get; }
+    public virtual Guid Guid { get; }
 
     /// <summary>
     /// The <c>Guid</c> of the <c>Agent</c> that the message is sent to.
     /// </summary>
-    public Guid Destination { get; }
+    public virtual Guid Destination { get; }
 
     /// <summary>
     /// The <c>Guid</c> of the <c>Agent</c> that sent the message.
     /// </summary>
-    public Guid Sender { get; }
+    public virtual Guid Sender { get; }
 
     /// <summary>
     /// The payload of the message.
     /// </summary>
-    public IMessage Payload { get; }
+    public virtual IMessage Payload { get; }
 
     /// <summary>
     /// The weight of the message.
     /// </summary>
-    public double Weight { get; }
+    public virtual double Weight { get; }
 
     /// <summary>
     /// Create a new <c>SocialMessage</c>.
@@ -57,5 +57,25 @@ public class SocialMessage : IMessage
         Sender = sender;
         Payload = payload;
         Weight = weight;
+    }
+
+    /// <summary>
+    /// Create a new <c>SocialMessage</c> with a random <c>Guid</c>.
+    /// </summary>
+    /// <param name="destination">
+    /// The <c>Guid</c> of the <c>Agent</c> that the message is sent to.
+    /// </param>
+    /// <param name="sender">
+    /// The <c>Guid</c> of the <c>Agent</c> that sent the message.
+    /// </param>
+    /// <param name="payload">
+    /// The payload of the message.
+    /// </param>
+    /// <param name="weight">
+    /// The weight of the message.
+    /// </param>
+    public SocialMessage(Guid destination, Guid sender, IMessage payload, double weight = 1.0) : this(Guid.NewGuid(),
+        destination, sender, payload, weight)
+    {
     }
 }
