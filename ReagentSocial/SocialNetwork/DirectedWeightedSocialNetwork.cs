@@ -65,4 +65,9 @@ public class DirectedWeightedSocialNetwork : ISocialNetwork
             SimulationManager.SimulationManager.Instance!.SendMessageNow(message);
         }
     }
+    
+    public override string ToString()
+    {
+        return $"DirectedWeightedSocialNetwork(Network={Network})";
+    }
 }
