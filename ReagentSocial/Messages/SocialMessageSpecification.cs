@@ -7,6 +7,7 @@ namespace Reagent.Social.Messages;
 /// <summary>
 /// The specification of a <c>SocialMessage</c>.
 /// </summary>
+// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 public class SocialMessageSpecification : IGuidD
 {
     /// <summary>
@@ -22,6 +23,7 @@ public class SocialMessageSpecification : IGuidD
     /// <summary>
     /// The payload of the message.
     /// </summary>
+    // ReSharper disable once MemberCanBeProtected.Global
     public virtual IMessage Payload { get; }
 
     /// <summary>
@@ -44,6 +46,7 @@ public class SocialMessageSpecification : IGuidD
     /// <param name="logger">
     /// The logger.
     /// </param>
+    // ReSharper disable once MemberCanBePrivate.Global
     public SocialMessageSpecification(Guid guid, Guid sender, IMessage payload,
         ILogger<SocialMessageSpecification> logger)
     {

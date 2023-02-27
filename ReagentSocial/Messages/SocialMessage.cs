@@ -5,6 +5,7 @@ using Reagent.Messages;
 /// <summary>
 /// A <c>SocialMessage</c> is a message that is sent between <c>Agent</c>s through the social network.
 /// </summary>
+// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 public class SocialMessage : IMessage
 {
     /// <summary>
@@ -25,11 +26,13 @@ public class SocialMessage : IMessage
     /// <summary>
     /// The payload of the message.
     /// </summary>
+    // ReSharper disable once MemberCanBeProtected.Global
     public virtual IMessage Payload { get; }
 
     /// <summary>
     /// The weight of the message.
     /// </summary>
+    // ReSharper disable once MemberCanBeProtected.Global
     public virtual double Weight { get; }
 
     /// <summary>
@@ -50,6 +53,7 @@ public class SocialMessage : IMessage
     /// <param name="weight">
     /// The weight of the message.
     /// </param>
+    // ReSharper disable once MemberCanBePrivate.Global
     public SocialMessage(Guid guid, Guid destination, Guid sender, IMessage payload, double weight = 1.0)
     {
         Guid = guid;
