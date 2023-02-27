@@ -9,7 +9,7 @@ using Reagent.Agent;
 
 public class AgentTest
 {
-    internal class AgentTestImpl : Agent
+    public class AgentTestImpl : Agent
     {
         public AgentTestImpl(Guid guid) : base(guid)
         {
